@@ -17,15 +17,11 @@ Create a new Rails project::
 
 Install the latest version of the Mapfish plugin::
 
-  ./script/plugin install http://www.mapfish.org/svn/mapfish/contribs/rails-plugin/mapfish/trunk
+  ./script/plugin install http://www.mapfish.org/svn/mapfish/implementations/rails-plugin/mapfish/trunk
 
 Install the latest version of the Mapfish client libraries::
 
   rake mapfish:install_client
-
-Build the deployment libs::
-
-   rake mapfish:build_scripts
 
 Install the required plugins and gems::
 
@@ -100,6 +96,22 @@ and checkout ``http://localhost:3000/countries?maxfeatures=10``
 Your browser should be displaying a nice GeoJSON object!
 
 You can now go back to your webpage and configure MapFish widgets to access your layer through the URL ``http://localhost:3000/countries``.
+
+
+For running in production mode you should build and install the compressed runtime libraries::
+
+   rake mapfish:build_scripts
+   rake mapfish:copy_scripts
+
+The development libraries in public/mfbase are not needed in a production deployment and the
+CSS and Javascript files can be included from public/javascripts::
+
+   <link rel="stylesheet" type="text/css" href="javascripts/ext/resources/css/ext-all.css" />
+   <link rel="stylesheet" type="text/css" href="javascripts/mapfish/mapfish.css" />
+
+   <script type="text/javascript" src="javascripts/ext/adapter/ext/ext-base.js"></script>
+   <script type="text/javascript" src="javascripts/ext/ext-all.js"></script>
+   <script type="text/javascript" src="javascripts/mapfish/MapFish.js"></script>
 
 
 Using the print module

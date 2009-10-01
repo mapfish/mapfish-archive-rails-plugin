@@ -14,12 +14,13 @@ end
 desc "Build MapFish release script"
 task :build_scripts do
   puts 'Building MapFish..'
+  puts <<EOS
+  If you get error: Could not find suitable distribution for Requirement.parse('JSTools'), install it manually
+  source public/build/venv/bin/activate
+  easy_install 'http://github.com/whitmo/jstools/tarball/master'
+  and call rake mapfish:build_scripts again
+EOS
   system("sh public/build/build.sh")
-  #If you get error: Could not find suitable distribution for Requirement.parse('JSTools'), install it manually
-  #cd public/build
-  #source venv/bin/activate
-  #easy_install 'http://github.com/whitmo/jstools/tarball/master'
-  #and call rake mapfish:build_scripts again
 end
 
 desc "Copy scripts to public/javascripts"
