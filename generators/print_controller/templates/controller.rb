@@ -4,7 +4,6 @@ class <%= class_name %>Controller < ApplicationController
   include MapFish::Print::Controller
 
   def initialize
-    @classPath = "vendor/plugins/mapfish/print/print-standalone.jar"
-    @configFile = "config/print.yaml"
+    @configFile = "#{RAILS_ROOT}/config/print.yaml"
   end
 end

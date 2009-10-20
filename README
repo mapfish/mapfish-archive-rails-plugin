@@ -27,7 +27,10 @@ Install the required plugins and gems::
 
   sudo gem install GeoRuby
   ./script/plugin install git://github.com/fragility/spatial_adapter.git
-  sudo gem install open4
+  #For printing:
+  sudo gem install Platform
+  sudo gem install open4 #Unix only
+  sudo gem install win-open3 #Windows only
 
 Set up the PostGIS database
 ---------------------------
