@@ -77,7 +77,7 @@ module MapFish
 
             def create
                 cleanupTempFiles
-                
+
                 tempId = rand(2**31) #TODO: not secure enough
                 temp = TEMP_PREFIX + tempId.to_s + TEMP_SUFFIX
                 cmd = baseCmd() + " --output=" + temp
