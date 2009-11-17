@@ -18,6 +18,7 @@
 #
 
 require 'popen4'
+require 'tmpdir'
 
 module MapFish
     module Print
@@ -58,7 +59,7 @@ module MapFish
                     result = stdout.readlines().join("\n")
                     errors = stderr.readlines().join("\n")
                 end
-                if status != 0
+                if status.nil? || status.exitstatus != 0
                     raise JavaError.new(cmd, errors)
                 else
                     info = ActiveSupport::JSON.decode(result)
@@ -91,7 +92,7 @@ module MapFish
                     result = stdout.readlines().join("\n")
                     errors = stderr.readlines().join("\n")
                 end
-                if status != 0
+                if status.nil? || status.exitstatus != 0
                     raise JavaError.new(cmd, errors)
                 else
                     respond_to do |format|
