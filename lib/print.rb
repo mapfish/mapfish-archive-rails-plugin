@@ -20,6 +20,8 @@
 require 'popen4'
 require 'tmpdir'
 
+Mime::Type.register 'application/pdf', :pdf
+
 module MapFish
     module Print
         class JavaError < Exception
