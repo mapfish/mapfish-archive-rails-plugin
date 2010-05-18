@@ -4,7 +4,7 @@ include FileUtils
 
 desc "Install MapFish client"
 task :install_client do
-  version='trunk' # 'branches/1.1'
+  version = ENV['VERSION'] || 'trunk' # e.g. 'branches/1.2'
   rm_rf("public/build")
   rm_rf("public/mfbase/")
   system("svn export http://www.mapfish.org/svn/mapfish/framework/client/#{version}/mfbase public/mfbase")
