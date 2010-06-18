@@ -177,3 +177,9 @@ module MapfishCoreExtensions
     end
   end
 end
+
+if defined? ActiveRecord
+  ActiveRecord::Base.class_eval do
+    include MapfishCoreExtensions::ActiveRecord::Base
+  end
+end

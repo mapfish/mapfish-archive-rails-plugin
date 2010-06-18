@@ -29,3 +29,7 @@ module MapfishCoreExtensions
 
   end
 end
+
+Array.class_eval do
+  include MapfishCoreExtensions::Array
+end

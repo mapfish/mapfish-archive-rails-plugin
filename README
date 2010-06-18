@@ -12,25 +12,32 @@ Create a MapFish project
 
 Create a new Rails project::
 
-    rails --database=postgresql MyMapFishProject
+    rails new MyMapFishProject --database=postgresql
     cd MyMapFishProject
 
-Install the latest version of the Mapfish plugin::
+Rails 3: Add the mapfish plugin to your Gemfile::
 
-  ./script/plugin install http://www.mapfish.org/svn/mapfish/implementations/rails-plugin/mapfish/trunk
+  gem 'mapfish'
+
+Then from your project’s RAILS_ROOT, run:
+
+  bundle install
+
+Rails 2: Add the mapfish plugin to your config/environment.rb::
+
+  config.gem 'mapfish'
+
+Then from your project’s RAILS_ROOT, run:
+
+  rake gems:install
+
+It is also possible to install mapfish as a plugin::
+
+  rails plugin install http://www.mapfish.org/svn/mapfish/implementations/rails-plugin/mapfish/trunk
 
 Install the latest version of the Mapfish client libraries::
 
   rake mapfish:install_client
-
-Install the required plugins and gems::
-
-  sudo gem install GeoRuby
-  ./script/plugin install git://github.com/fragility/spatial_adapter.git
-  #For printing:
-  sudo gem install Platform
-  sudo gem install open4 #Unix only
-  sudo gem install win-open3 #Windows only
 
 Set up the PostGIS database
 ---------------------------
@@ -71,7 +78,7 @@ Create a resource (model and controller)::
 
 Import some data::
 
-  ./script/runner "Geonames::Weather.weather(:north => 44.1, :south => -9.9, :east => -22.4, :west => 55.2).each { |st| WeatherStation.create(:name => st.stationName, :geom => Point.from_x_y(st.lng, st.lat)) }"
+  rails runner "Geonames::Weather.weather(:north => 44.1, :south => -9.9, :east => -22.4, :west => 55.2).each { |st| WeatherStation.create(:name => st.stationName, :geom => Point.from_x_y(st.lng, st.lat)) }"
 
 (needs lib/geonames.rb from http://github.com/pka/map_layers/tree in lib/)
 
@@ -92,7 +99,7 @@ Starting the web server
 
 You should be all set now. Try starting the web server::
 
-  ./script/server
+  rails server
 
 and checkout ``http://localhost:3000/countries?maxfeatures=10``
 
@@ -138,4 +145,4 @@ License
 
 The Mapfish server plugin for Rails is released under the LGPL license.
 
-*Copyright (c) 2008 Pirmin Kalberer, Sourcepole AG*
+*Copyright (c) 2008-2010 Pirmin Kalberer, Sourcepole AG*
