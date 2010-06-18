@@ -58,48 +58,48 @@ module GeoRuby
       end
     end  
     class Point
-      def to_json(options = {})
+      def to_json(options = nil)
         {:type => "Point", 
           :coordinates => [self.x, self.y]}.to_json(options)
       end
     end  
     class LineString
-      def to_json(options = {})
+      def to_json(options = nil)
         coords = self.points.collect {|point| [point.x, point.y] }
         {:type => "LineString", 
           :coordinates => coords}.to_json(options)
       end
     end 
     class Polygon
-      def to_json(options = {})
+      def to_json(options = nil)
         coords = self.collect {|ring| ring.points.collect {|point| [point.x, point.y] } }
         {:type => "Polygon", 
           :coordinates => coords}.to_json(options)
       end
     end
     class MultiPoint
-      def to_json(options = {})
+      def to_json(options = nil)
         coords = self.geometries.collect {|geom| [geom.x, geom.y] }
         {:type => "MultiPoint", 
           :coordinates => coords}.to_json(options)
       end
     end 
     class MultiLineString
-      def to_json(options = {})
+      def to_json(options = nil)
         coords = self.geometries.collect {|geom| geom.points.collect {|point| [point.x, point.y] } }
         {:type => "MultiLineString", 
           :coordinates => coords}.to_json(options)
       end
     end 
     class MultiPolygon
-      def to_json(options = {})
+      def to_json(options = nil)
         coords = self.geometries.collect {|geom| geom.collect {|ring| ring.points.collect {|point| [point.x, point.y] } } }
         {:type => "MultiPolygon", 
           :coordinates => coords}.to_json(options)
       end
     end 
     class GeometryCollection
-      def to_json(options = {})
+      def to_json(options = nil)
         {:type => "GeometryCollection", 
           :geometries => self.geometries}.to_json(options)
       end
@@ -116,7 +116,7 @@ module GeoRuby
         @id=id
       end
 
-      def to_json(options = {})
+      def to_json(options = nil)
         result={:type=>"Feature",
           :geometry=>@geometry,
           :properties=>@properties}
@@ -139,7 +139,7 @@ module GeoRuby
         @features=features
       end
 
-      def to_json(options = {})
+      def to_json(options = nil)
         {:type=>"FeatureCollection",
           :features=>@features}.to_json(options)
       end
