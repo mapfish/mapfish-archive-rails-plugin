@@ -78,7 +78,10 @@ module MapfishCoreExtensions
             x1, y1, x2, y2 = params['bbox'].split(',').collect(&:to_f)
             box = [[x1, y1], [x2, y2], srid]
           end
-          filter.merge!({geometry_column.name.to_sym => box}) if box
+          if box
+            box3d = "'BOX3D(#{box[0].join(" ")},#{box[1].join(" ")})'::box3d"
+            filter = "#{table_name}.#{connection.quote_column_name(geometry_column.name)} && SetSRID(#{box3d}, #{box[2] || DEFAULT_SRID} ) "
+          end
           conditions = sanitize_sql_for_conditions(filter)
 
           #Add attribute filter
