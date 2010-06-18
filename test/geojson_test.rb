@@ -10,8 +10,7 @@ class GeojsonTest < Test::Unit::TestCase
   def check_geom(geojson, expected)
     geom=Geometry.from_geojson(geojson)
     assert_equal(expected, geom)
-    assert_equal(JSON::decode(geojson),
-      JSON::decode(geom.to_json))
+    assert_equal(JSON::decode(geojson), JSON::decode(geom.to_json))
   end
 
   def test_point_from_hash

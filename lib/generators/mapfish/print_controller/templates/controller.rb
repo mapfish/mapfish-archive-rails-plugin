@@ -1,5 +1,3 @@
-require 'print'
-
 class <%= class_name %>Controller < ApplicationController
   include MapFish::Print::Controller
 
