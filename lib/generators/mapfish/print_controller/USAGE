@@ -1,0 +1,12 @@
+Description:
+    Stubs out a new MapFish controller and its views. Pass the controller name,
+    either CamelCased or under_scored.
+
+    To create a controller within a module, specify the controller name as a
+    path like 'parent_module/controller_name'.
+
+    This generates a controller class in app/controllers, a sample configuration
+    config/print.yaml and invokes helper and test framework generators.
+
+Example:
+    `rails generate mapfish:print_controller Print`

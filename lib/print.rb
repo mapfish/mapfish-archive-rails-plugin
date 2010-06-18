@@ -17,6 +17,7 @@
 # along with MapFish Server.  If not, see <http://www.gnu.org/licenses/>.
 #
 
+require 'mapfish'
 require 'popen4'
 require 'tmpdir'
 
@@ -28,13 +29,6 @@ module MapFish
             def initialize(cmd, message)
                 super(cmd+"\n"+message)
             end
-        end
-
-        # Used to add the needed routes for the print module
-        def self.add_routes(map, controller = 'print', base = 'print')
-            map.connect(base+'/info.:format', :controller=>controller, :action=>'info', :method=>:get)
-            map.connect(base+'/create.:format', :controller=>controller, :action=>'create', :method=>:post)
-            map.connect(base+'/:id.:format', :controller=>controller, :action=>'show', :method=>:get)
         end
 
         # To have a controller for the print module, just mix-in this module to

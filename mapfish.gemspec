@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{mapfish}
-  s.version = "1.3.3"
+  s.version = "1.3.4"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Pirmin Kalberer"]
-  s.date = %q{2010-06-18}
+  s.date = %q{2010-06-19}
   s.description = %q{MapFish is a flexible and complete framework for building rich web-mapping applications. Homepage: mapfish.org}
   s.email = %q{pka@sourcepole.ch}
   s.files = [
@@ -17,20 +17,15 @@ Gem::Specification.new do |s|
      "README",
      "Rakefile",
      "VERSION",
-     "generators/mapfish_resource/USAGE",
-     "generators/mapfish_resource/mapfish_resource_generator.rb",
-     "generators/mapfish_resource/templates/controller.rb",
-     "generators/mapfish_resource/templates/functional_test.rb",
-     "generators/mapfish_resource/templates/helper.rb",
-     "generators/print_controller/USAGE",
-     "generators/print_controller/print_controller_generator.rb",
-     "generators/print_controller/templates/config.yaml",
-     "generators/print_controller/templates/controller.rb",
-     "generators/print_controller/templates/functional_test.rb",
-     "generators/print_controller/templates/helper.rb",
-     "generators/print_controller/templates/helper_test.rb",
      "init.rb",
      "install.rb",
+     "lib/generators/mapfish/print_controller/USAGE",
+     "lib/generators/mapfish/print_controller/print_controller_generator.rb",
+     "lib/generators/mapfish/print_controller/templates/config.yaml",
+     "lib/generators/mapfish/print_controller/templates/controller.rb",
+     "lib/generators/mapfish/resource/USAGE",
+     "lib/generators/mapfish/resource/resource_generator.rb",
+     "lib/generators/mapfish/resource/templates/controller.rb",
      "lib/geojson.rb",
      "lib/mapfish.rb",
      "lib/mapfish_core_extensions/active_record/base.rb",
@@ -45,14 +40,14 @@ Gem::Specification.new do |s|
   s.homepage = %q{http://mapfish.org/doc/implementations/rails.html}
   s.rdoc_options = ["--charset=UTF-8"]
   s.require_paths = ["lib"]
-  s.rubygems_version = %q{1.3.6}
+  s.rubygems_version = %q{1.3.7}
   s.summary = %q{Mapfish server plugin for Ruby on Rails}
 
   if s.respond_to? :specification_version then
     current_version = Gem::Specification::CURRENT_SPECIFICATION_VERSION
     s.specification_version = 3
 
-    if Gem::Version.new(Gem::RubyGemsVersion) >= Gem::Version.new('1.2.0') then
+    if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
       s.add_runtime_dependency(%q<spatial_adapter>, [">= 0"])
       s.add_runtime_dependency(%q<GeoRuby>, [">= 0"])
       s.add_runtime_dependency(%q<POpen4>, [">= 0.1.4"])

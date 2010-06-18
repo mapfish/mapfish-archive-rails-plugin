@@ -1,0 +1,21 @@
+Description:
+    Scaffolds an entire MapFish resource, from model and migration to controller,
+    along with a full test suite.
+
+    Pass the singular model name, either CamelCased or under_scored, as the
+    first argument, and an optional list of attribute pairs.
+
+    Attribute pairs are field:type arguments specifying the
+    model's attributes. Timestamps are added by default, so you don't have to
+    specify them by hand as 'created_at:datetime updated_at:datetime'.
+
+    You don't have to think up every attribute up front, but it helps to
+    sketch out a few so you can start working with the model immediately.
+
+    This generator invokes your configured ORM and test framework, besides
+    creating helpers and add routes to config/routes.rb.
+
+Examples:
+    `rails generate mapfish::resource post` # no attributes
+    `rails generate mapfish::resource post title:string body:text published:boolean`
+    `rails generate mapfish::resource weather_station name:string position:point`

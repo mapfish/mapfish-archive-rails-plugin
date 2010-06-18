@@ -2,16 +2,18 @@ class <%= controller_class_name %>Controller < ApplicationController
 
   SRID = <%= class_name %>.geometry_column.srid
 
+<% unless options[:singleton] -%>
   # GET /<%= table_name %>
   def index
-    @<%= table_name %> = <%= class_name %>.find_by_mapfish_filter(params)
+    @<%= table_name %> = <%= class_name %>.mapfish_filter(params)
 
     render :json => @<%= table_name %>.to_geojson
   end
+<% end -%>
 
   # GET /<%= table_name %>/1
   def show
-    @<%= file_name %> = <%= class_name %>.find(params[:id])
+    @<%= file_name %> = <%= orm_class.find(class_name, "params[:id]") %>
 
     render :json => [@<%= file_name %>].to_geojson
   end
@@ -27,10 +29,10 @@ class <%= controller_class_name %>Controller < ApplicationController
 
     feature_collection.features.each do |feature|
       if feature.id.is_a? Integer
-        <%= file_name %> = <%= class_name %>.find_by_id(feature.id)
+        <%= file_name %> = <%= orm_class.find(class_name, "feature.id") %>
       end
       if <%= file_name %>.nil?
-        <%= file_name %> = <%= class_name %>.new()
+        <%= file_name %> = <%= orm_class.build(class_name) %>
       end
 
       if <%= file_name %>.update_attributes_from_feature(feature)
@@ -50,7 +52,7 @@ class <%= controller_class_name %>Controller < ApplicationController
     end
 
     if feature.id.is_a? Integer
-      @<%= file_name %> = <%= class_name %>.find_by_id(feature.id)
+      @<%= file_name %> = <%= orm_class.find(class_name, "feature.id") %>
     end
     if @<%= file_name %>.nil?
       head :not_found
@@ -66,10 +68,8 @@ class <%= controller_class_name %>Controller < ApplicationController
 
   # DELETE /<%= table_name %>/1
   def destroy
-    @<%= file_name %> = <%= class_name %>.find(params[:id])
-    @<%= file_name %>.destroy
-
+    @<%= file_name %> = <%= orm_class.find(class_name, "params[:id]") %>
+    @<%= orm_instance.destroy %>
     head :no_content
   end
-
 end

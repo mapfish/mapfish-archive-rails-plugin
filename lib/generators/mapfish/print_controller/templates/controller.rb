@@ -4,6 +4,7 @@ class <%= class_name %>Controller < ApplicationController
   include MapFish::Print::Controller
 
   def initialize
-    @configFile = "#{RAILS_ROOT}/config/print.yaml"
+    @configFile = "#{Rails.root}/config/print.yaml"
   end
+
 end
