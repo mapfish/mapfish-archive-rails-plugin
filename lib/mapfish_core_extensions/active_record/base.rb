@@ -63,6 +63,55 @@ module MapfishCoreExtensions
           {name => data, primary_key => geoson.delete(:id)}
         end
 
+        def mapfish_filter(params)
+          filter = scoped
+
+          #Create geometry filter
+          srid = geometry_column.srid
+          pnt = nil
+          pnt = Point.from_x_y(params['lon'].to_f, params['lat'].to_f, srid) if params['lon'] && params['lat']
+          box = nil
+          if pnt && params['tolerance']
+            rad = params['tolerance'].to_f/2
+            box = [[pnt.x+rad, pnt.y+rad], [pnt.x-rad, pnt.y-rad], srid]
+          end
+          if params['bbox']
+            x1, y1, x2, y2 = params['bbox'].split(',').collect(&:to_f)
+            box = [[x1, y1], [x2, y2], srid]
+          end
+          if box
+            box3d = "'BOX3D(#{box[0].join(" ")},#{box[1].join(" ")})'::box3d"
+            filter = filter.where("#{table_name}.#{connection.quote_column_name(geometry_column.name)} && SetSRID(#{box3d}, #{box[2] || DEFAULT_SRID} ) ")
+          end
+
+          #Add attribute filter
+          params.each do |key, value|
+            next if value.nil? || !value.respond_to?(:empty?) || value.empty?
+            field, op = key.split('__')
+            col = "#{table_name}.#{connection.quote_column_name(field)}"
+            case op
+            when 'eq'
+              filter = filter.where("#{col} = ?", value)
+            when 'ne'
+              filter = filter.where("#{col} <> ?", value)
+            when 'lt'
+              filter = filter.where("#{col} < ?", value)
+            when 'lte'
+              filter = filter.where("#{col} <= ?", value)
+            when 'gt'
+              filter = filter.where("#{col} > ?", value)
+            when 'gte'
+              filter = filter.where("#{col} >= ?", value)
+            when 'ilike'
+              #TODO: support wildcarded ILIKE: https://trac.mapfish.org/trac/mapfish/ticket/495
+              filter = filter.where("#{col} ILIKE ?", value)
+            end
+          end
+
+          filter
+        end
+
+        #Rails 2 backwards compatible finder
         def find_by_mapfish_filter(params, args = {})
           filter = {}
           #Create geometry filter
