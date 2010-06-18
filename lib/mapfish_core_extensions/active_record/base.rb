@@ -52,7 +52,7 @@ module MapfishCoreExtensions
 
         def geometry_column
           #Returns first geometry column found. TODO: override by configuration (set_geometry_column)?
-          @geometry_column ||= columns.detect {|col| col.type == :geometry }
+          @geometry_column ||= columns.detect {|col| col.respond_to?(:geometry_type) }
         end
 
         def params_from_geojson(geoson)
