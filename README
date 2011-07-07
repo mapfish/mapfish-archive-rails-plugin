@@ -80,7 +80,7 @@ Import some data::
 
   rails runner "Geonames::Weather.weather(:north => 44.1, :south => -9.9, :east => -22.4, :west => 55.2).each { |st| WeatherStation.create(:name => st.stationName, :geom => Point.from_x_y(st.lng, st.lat)) }"
 
-(needs lib/geonames.rb from http://github.com/pka/map_layers/tree in lib/)
+(needs lib/geonames.rb from http://github.com/pka/map_layers/raw/master/lib/geonames.rb)
 
 Create a resource for an existing table::
 
